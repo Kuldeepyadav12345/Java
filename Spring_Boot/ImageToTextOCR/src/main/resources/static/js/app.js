@@ -120,3 +120,19 @@ function copyText() {
         console.error('Failed to copy text:', err);
     });
 }
+
+// Handle paste event for images
+dropArea.addEventListener('paste', function(e) {
+    if (e.clipboardData && e.clipboardData.items) {
+        for (let i = 0; i < e.clipboardData.items.length; i++) {
+            const item = e.clipboardData.items[i];
+            if (item.type.startsWith('image/')) {
+                const file = item.getAsFile();
+                handleFiles([file]);
+                e.preventDefault();
+                return;
+            }
+        }
+        alert('Clipboard does not contain an image.');
+    }
+});
