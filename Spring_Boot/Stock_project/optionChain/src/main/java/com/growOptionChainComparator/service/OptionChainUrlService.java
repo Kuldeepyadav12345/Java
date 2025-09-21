@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class OptionChainUrlService {
 
 	private static final String GROWW_BASE_URL_TEMPLATE = "https://groww.in/v1/api/stocks_fo_data/v1/tr_live_prices/exchange/NSE/segment/FNO/%s/latest";
+	private static final String BANKNIFTY_COMPANY_URL = "https://groww.in/v1/api/stocks_data/v1/tr_live_prices/exchange/NSE/segment/CASH/%s/latest";
+	
 	private static final String currentDate = "25SEP";
 	private static final String[] BANKNIFTY_OPTIONS = {
 
@@ -103,18 +105,21 @@ public class OptionChainUrlService {
 			"BANKNIFTY25JUN59800CE", "BANKNIFTY25JUN59800PE", "BANKNIFTY25JUN59900CE", "BANKNIFTY25JUN59900PE",
 			"BANKNIFTY25JUN60000CE", "BANKNIFTY25JUN60000PE" };
 
+	private static final String[] BANKNIFTY_COMPANIES = { "HDFCBANK", "ICICIBANK", "SBIN", "KOTAKBANK", "AXISBANK",
+			"PNB", "BANKBARODA", "CANBK", "INDUSINDBK", "IDFCFIRSTB", "AUBANK", "FEDERALBNK" };
+
 	public String generateGrowwOptionUrl(String optionSymbol) {
 		return String.format(GROWW_BASE_URL_TEMPLATE, optionSymbol);
 	}
 
 	public static List<String> generateDynamicOptionUrls() {
-		//System.out.println("Generating dynamic option URLs Started...");
+		// System.out.println("Generating dynamic option URLs Started...");
 		updatebankNiftyOptionArry();
 		List<String> urls = new ArrayList<>();
 		for (String option : BANKNIFTY_OPTIONS) {
 			String formattedUrl = String.format(GROWW_BASE_URL_TEMPLATE, option);
 			urls.add(formattedUrl);
-			//System.out.println("Generated URL: " + formattedUrl); // For debugging
+			// System.out.println("Generated URL: " + formattedUrl); // For debugging
 		}
 		return urls;
 	}
@@ -125,6 +130,30 @@ public class OptionChainUrlService {
 			// Replace the date part (e.g., "25JUN") with currentDate (e.g., "25SEP")
 			BANKNIFTY_OPTIONS[i] = BANKNIFTY_OPTIONS[i].replaceAll("\\d{2}[A-Z]{3}", currentDate);
 		}
+
+	}
+	
+	// Generate dynamic URLs for Bank Nifty companies
+	public static List<String> generateDynamicBankNiftyCompUrl() {
+		// System.out.println("Generating dynamic option URLs Started...");
+		updateBankNiftyCompUrl();
+		List<String> bankNiftyCompanies = new ArrayList<>();
+		for (String option : BANKNIFTY_COMPANIES) {
+			String formattedUrl = String.format(BANKNIFTY_COMPANY_URL, option);
+			bankNiftyCompanies.add(formattedUrl);
+			 //System.out.println("Generated URL: " + formattedUrl); // For debugging
+		}
+		return bankNiftyCompanies;
+	}
+	
+	private static void updateBankNiftyCompUrl() {
+		 String[] updatedUrls = new String[BANKNIFTY_COMPANIES.length];
+
+	        for (int i = 0; i < BANKNIFTY_COMPANIES.length; i++) {
+	            // Replace the placeholder in the URL with the company symbol from the array.
+	            updatedUrls[i] = BANKNIFTY_COMPANY_URL.replaceAll("%s/", BANKNIFTY_COMPANIES[i] + "/");
+	        }
+
 
 	}
 }

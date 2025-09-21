@@ -9,6 +9,10 @@ public final class ApiConstants {
 
     public static final String BASE_URL = "http://localhost:9012/api/highestStrikePrice";
     public static String HIGHEST_VOLUME_URL = highestVolumeUrl;
+    public static int BANKNIFTY_LOT_SIZE = 35;
+    public static int PROFIT_AMOUNT = 700;
+    public static int lOSS_AMOUNT = 700;
+    public static int GROW_CHARGES = 100;
     
     public static String url;
     private static String strikePrice;
