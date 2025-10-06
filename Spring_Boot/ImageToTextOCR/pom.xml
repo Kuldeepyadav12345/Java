@@ -53,6 +53,12 @@
 		org.bytedeco.javacpp-presets:tesseract:4.0.0-1.4.4 -->
 		<!-- If you need Tesseract native bindings, use Tess4J only or add a
 		valid version from Maven Central -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>

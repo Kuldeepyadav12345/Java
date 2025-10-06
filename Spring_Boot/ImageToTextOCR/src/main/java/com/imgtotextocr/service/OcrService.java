@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class OcrService {
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String CUSTOM_NEWLINE = " /n ";
+    private static final String CUSTOM_NEWLINE = "NEWLINE";
 
     // tesseractPath should point to tessdata folder, not the executable
     @Value("${tesseract.path}")
@@ -109,7 +109,7 @@ public class OcrService {
             // Normalize spaces around equals sign
             line = line.replaceAll("\\s*=\\s*", "=");
             // Clean up multiple spaces
-            line = line.replaceAll("\\s+", " ");
+            //line = line.replaceAll("\\s+", " ");
         }
         
         return line;
