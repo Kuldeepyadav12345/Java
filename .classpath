@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Spring_Boot/Apache_Camel_Projects/ApacheCamel/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Boot/ImageToTextOCR/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Boot/springBoot01/springBoot01/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Boot/springBoot01/springBoot01/src/test/java"/>
+	<classpathentry kind="src" path="Spring_Boot/Stock_project/optionChain/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Boot/Stock_project/optionChain/src/test/java"/>
+	<classpathentry excluding="com/data/service/" kind="src" path="Spring_Boot/Stock_project/volume-consumer/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Boot/Stock_project/volume-consumer/src/main/java/com/data/service"/>
+	<classpathentry kind="src" path="Spring_Security/SpringSecurity/SpringSecurity/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Security/SpringSecurity/SpringSecurity/src/test/java"/>
+	<classpathentry kind="src" path="Spring_Security/SpringSecurity/src/main/java"/>
+	<classpathentry kind="src" path="Spring_Security/SpringSecurity/src/test/java"/>
+	<classpathentry kind="lib" path="Spring_Boot/Apache_Camel_Projects/ApacheCamel/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="lib" path="Spring_Boot/Apache_Camel_Projects/ApacheCamel/target/ApacheCamel-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="Spring_Boot/Stock_project/volume-consumer/bin/target/volume-consumer-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="Spring_Boot/Stock_project/volume-consumer/target/volume-consumer-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="Spring_Boot/Apache_Camel_Projects/ApacheCamel/target/classes"/>
+</classpath>

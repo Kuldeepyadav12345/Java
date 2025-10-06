@@ -44,18 +44,21 @@
 			<artifactId>ojdbc8</artifactId>
 		</dependency>
 
-		<!-- Deep Learning (DL4J + ND4J) -->
-		<dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-core</artifactId>
-			<version>${dl4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-native-platform</artifactId>
-			<version>${dl4j.version}</version>
-		</dependency>
+	<!-- Deeplearning4j Core -->
+    <dependency>
+        <groupId>org.deeplearning4j</groupId>
+        <artifactId>deeplearning4j-core</artifactId>
+        <version>1.0.0-M2.1</version> <!-- Latest stable version -->
+    </dependency>
 
+    <!-- ND4J backend (CPU) -->
+    <dependency>
+        <groupId>org.nd4j</groupId>
+        <artifactId>nd4j-native-platform</artifactId>
+        <version>1.0.0-M2.1</version>
+    </dependency>
+    
+    
 		<!-- HTTP Client -->
 		<dependency>
 			<groupId>org.apache.httpcomponents.client5</groupId>
@@ -74,6 +77,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

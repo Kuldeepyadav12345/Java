@@ -36,7 +36,7 @@ public class StockDataService {
 	/**
 	 * Runs every 1 second
 	 */
-	@Scheduled(fixedRate = 1000, initialDelay = 0)
+	@Scheduled(fixedRate = 100000, initialDelay = 0)
 	public void getBankNiftyCompanyDataEverySecond() {
 		livePriceEverySecond.getBankNiftyCompanyData();
 		if (counter % 5 == 0) {

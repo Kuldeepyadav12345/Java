@@ -1,81 +1,145 @@
 package com.data.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
+import org.deeplearning4j.util.ModelSerializer;
+import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
+import org.nd4j.linalg.learning.config.Adam;
+import org.nd4j.linalg.lossfunctions.LossFunctions;
 import org.springframework.stereotype.Service;
 
-import com.data.model.OptionData;
+import com.data.model.BankNiftyCompaniesData;
 
-import jakarta.annotation.PostConstruct;
 
-@Service
-@Lazy
+
 public class Deeplearning4jService {
-    private static final Logger logger = LoggerFactory.getLogger(Deeplearning4jService.class);
-    private MultiLayerNetwork model;
-    private boolean isInitialized = false;
+
+    private static final int INPUT_FEATURES = 325;
+    private static final int OUTPUT_FEATURES = 1;
+    private static final String MODEL_FILE = "F:\\Git_Hub_Repositories\\Projects\\Java\\Spring_Boot\\Stock_project\\volume-consumer\\src\\main\\resources\\dl4jModel.zip";
+
+    
+   
+    
+    private static MultiLayerNetwork model;
+    private List<DataSet> liveData;
 
     public Deeplearning4jService() {
+        this.liveData = new ArrayList<>();
+        loadModel();
     }
 
-    @PostConstruct
-    public void init() {
-        try {
-            initializeModel();
-            isInitialized = true;
-            logger.info("DL4J model initialization complete");
-        } catch (Throwable e) {
-            logger.error("Model initialization failed, service will return current LTP values", e);
-            isInitialized = false;
-        }
-    }
-
-    private void initializeModel() {
-        try {
-            int numInputs = 7;
-            MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
-                .seed(123)
+    /**
+     * Build a new neural network model if no saved model exists.
+     */
+    private void buildModel() {
+        MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
+                .seed(12345)
+                .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+                .updater(new Adam.Builder().learningRate(0.001).build())
                 .list()
-                .layer(0, new OutputLayer.Builder(org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction.MSE)
-                    .nIn(numInputs)
-                    .nOut(1)
-                    .build())
+                .layer(0, new DenseLayer.Builder().nIn(INPUT_FEATURES).nOut(256).activation(Activation.RELU).build())
+                .layer(0, new DenseLayer.Builder().nOut(128).activation(Activation.RELU).build())
+                .layer(0, new OutputLayer.Builder(LossFunctions.LossFunction.MSE).nOut(1).activation(Activation.IDENTITY).build())
+
                 .build();
 
-            model = new MultiLayerNetwork(conf);
-            model.init();
-            logger.info("Neural network initialized");
-        } catch (Exception e) {
-            logger.error("Model initialization failed", e);
-            isInitialized = false;
-        }
+        model = new MultiLayerNetwork(config);
+        model.init();
+        model.setListeners(new ScoreIterationListener(10));
     }
 
-    public double predict(OptionData data) {
-       
+    public double predict(BankNiftyCompaniesData bankNiftyCompaniesData) {
+        double[] inputFeatures = extractFeatures(bankNiftyCompaniesData);
+        INDArray input = Nd4j.create(inputFeatures).reshape(1, INPUT_FEATURES);
+        return model.output(input).getDouble(0);
+    }
+
+    public static double[] extractFeatures(BankNiftyCompaniesData bankNiftyCompaniesData) {
+        double[] features = new double[INPUT_FEATURES];
+
+        // Example: manually extract fields
+        features[0] = bankNiftyCompaniesData.getHDFCBANK_close();
+        features[1] = bankNiftyCompaniesData.getICICIBANK_close();
+        features[2] = bankNiftyCompaniesData.getSBIN_close();
+        features[3] = bankNiftyCompaniesData.getKOTAKBANK_close();
+        features[4] = bankNiftyCompaniesData.getAXISBANK_close();
+        features[5] = bankNiftyCompaniesData.getPNB_close();
+        features[6] = bankNiftyCompaniesData.getBANKBARODA_close();
+        features[7] = bankNiftyCompaniesData.getCANBK_close();
+        features[8] = bankNiftyCompaniesData.getINDUSINDBK_close();
+        features[9] = bankNiftyCompaniesData.getIDFCFIRSTB_close();
+        features[10] = bankNiftyCompaniesData.getAUBANK_close();
+        features[11] = bankNiftyCompaniesData.getFEDERALBNK_close();
+        
+        
+
+        return features;
+    }
+
+
+    /**
+     * Reinforce the model with a live feedback sample.
+     */
+    public void reinforce(double[] inputFeatures, double actualOutput) {
+        INDArray input = Nd4j.create(inputFeatures).reshape(1, INPUT_FEATURES);
+        INDArray output = Nd4j.create(new double[]{actualOutput}).reshape(1, OUTPUT_FEATURES);
+
+        DataSet newData = new DataSet(input, output);
+        liveData.add(newData);
+
+        // Incremental training with new sample
+        model.fit(newData);
+
+        // Save the model after reinforcement
+        saveModel();
+    }
+
+    /**
+     * Save the current model state to disk.
+     */
+    private void saveModel() {
         try {
-            double[] features = new double[7];
-            features[0] = data.getLtp() / 10000.0;
-            features[1] = data.getOpen() / 10000.0;
-            features[2] = data.getHigh() / 10000.0;
-            features[3] = data.getLow() / 10000.0;
-            features[4] = data.getDayChangePerc() / 100.0;
-            features[5] = data.getVolume() / 1000000.0;
-            features[6] = data.getOpenInterest() / 100000.0;
-
-            INDArray input = Nd4j.create(new double[][]{features});
-            double prediction = model.output(input).getDouble(0) * 10000.0;
-            return prediction;
-        } catch (Exception e) {
-            logger.error("Prediction failed", e);
-            return data.getLtp();
+            File modelFile = new File(MODEL_FILE);
+            // The model instance is an instance variable of the service.
+            // We just need to save this instance to the file.
+            ModelSerializer.writeModel(this.model, modelFile, true); 
+            System.out.println("Model saved successfully to " + MODEL_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error saving the model to disk.");
         }
     }
+    /**
+     * Load the model from disk, or build a new one if none exists.
+     */
+    private void loadModel() {
+        File file = new File(MODEL_FILE);
+        if (file.exists()) {
+            try {
+            	System.out.println("Loading existing model from " + MODEL_FILE);
+                model = ModelSerializer.restoreMultiLayerNetwork(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+                buildModel();
+            }
+        } else {
+            buildModel();
+        }
+    }
+
+   
 }

@@ -5,16 +5,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.growOptionChainComparator.constant.ApiConstants;
-import com.growOptionChainComparator.dto.HighStrikePriceDTO;
 import com.growOptionChainComparator.model.BankNiftyCompanies;
 import com.growOptionChainComparator.model.LivePrice;
 import com.growOptionChainComparator.model.OptionVolumeData;

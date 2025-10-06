@@ -10,7 +10,7 @@ public class OptionChainUrlService {
 	private static final String GROWW_BASE_URL_TEMPLATE = "https://groww.in/v1/api/stocks_fo_data/v1/tr_live_prices/exchange/NSE/segment/FNO/%s/latest";
 	private static final String BANKNIFTY_COMPANY_URL = "https://groww.in/v1/api/stocks_data/v1/tr_live_prices/exchange/NSE/segment/CASH/%s/latest";
 	
-	private static final String currentDate = "25SEP";
+	private static final String currentDate = "25OCT";
 	private static final String[] BANKNIFTY_OPTIONS = {
 
 			"BANKNIFTY25JUN42000CE", "BANKNIFTY25JUN42000PE", "BANKNIFTY25JUN42100CE", "BANKNIFTY25JUN42100PE",
@@ -141,7 +141,7 @@ public class OptionChainUrlService {
 		for (String option : BANKNIFTY_COMPANIES) {
 			String formattedUrl = String.format(BANKNIFTY_COMPANY_URL, option);
 			bankNiftyCompanies.add(formattedUrl);
-			 //System.out.println("Generated URL: " + formattedUrl); // For debugging
+			 System.out.println("Generated URL: " + formattedUrl); // For debugging
 		}
 		return bankNiftyCompanies;
 	}
