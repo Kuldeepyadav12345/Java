@@ -1,12 +1,11 @@
 package com.data.bean;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-
+@Configuration
 public class RuntimeBean {
 	
 	
-	@Bean
 	public static double calculateAverage(double[] changes) {
 	    if (changes == null || changes.length == 0) {
 	        throw new IllegalArgumentException("Array cannot be null or empty");

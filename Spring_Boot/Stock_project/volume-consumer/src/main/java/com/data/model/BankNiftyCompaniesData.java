@@ -259,18 +259,18 @@ import jakarta.persistence.Table;
 
 
 
-		private String HDFCBANK_prevOpenInterest;
-		private String ICICIBANK_prevOpenInterest;
-		private String SBIN_prevOpenInterest;
-		private String KOTAKBANK_prevOpenInterest;
-		private String AXISBANK_prevOpenInterest;
-		private String PNB_prevOpenInterest;
-		private String BANKBARODA_prevOpenInterest;
-		private String CANBK_prevOpenInterest;
-		private String INDUSINDBK_prevOpenInterest;
-		private String IDFCFIRSTB_prevOpenInterest;
-		private String AUBANK_prevOpenInterest;
-		private String FEDERALBNK_prevOpenInterest;
+		private double HDFCBANK_prevOpenInterest;
+		private double ICICIBANK_prevOpenInterest;
+		private double SBIN_prevOpenInterest;
+		private double KOTAKBANK_prevOpenInterest;
+		private double AXISBANK_prevOpenInterest;
+		private double PNB_prevOpenInterest;
+		private double BANKBARODA_prevOpenInterest;
+		private double CANBK_prevOpenInterest;
+		private double INDUSINDBK_prevOpenInterest;
+		private double IDFCFIRSTB_prevOpenInterest;
+		private double AUBANK_prevOpenInterest;
+		private double FEDERALBNK_prevOpenInterest;
 
 
 
@@ -397,7 +397,7 @@ import jakarta.persistence.Table;
 	    private Double 	highestOptChainVol_high;
 	    private Double 	highestOptChainVol_low;
 	    private Double 	highestOptChainVol_close;
-	    private Double 	highestOptChainVol_ltp;
+	    
 	    private Double 	highestOptChainVol_dayChange;
 	    private Double 	highestOptChainVol_dayChangePerc;
 	    private Double 	highestOptChainVol_lowPriceRange;
@@ -417,6 +417,9 @@ import jakarta.persistence.Table;
 	    private String 	highestOptChainVol_symbol;
 	    private Long 	highestOptChainVol_tsInMillis;
 	    private String 	highestOptChainVol_strikePrice;
+	    private Double 	highestOptChainVol_ltp;
+	    private Double 	highestOptChainVol_targetLtp;
+	    private Double 	highestOptChainVol_stopLossLtp;
 		
 	    
 		public static void setInstance(BankNiftyCompaniesData instance) {
@@ -1580,76 +1583,76 @@ import jakarta.persistence.Table;
 		public void setFEDERALBNK_openInterest(String fEDERALBNK_openInterest) {
 			FEDERALBNK_openInterest = fEDERALBNK_openInterest;
 		}
-		public String getHDFCBANK_prevOpenInterest() {
+		public double getHDFCBANK_prevOpenInterest() {
 			return HDFCBANK_prevOpenInterest;
 		}
-		public void setHDFCBANK_prevOpenInterest(String hDFCBANK_prevOpenInterest) {
+		public void setHDFCBANK_prevOpenInterest(double hDFCBANK_prevOpenInterest) {
 			HDFCBANK_prevOpenInterest = hDFCBANK_prevOpenInterest;
 		}
-		public String getICICIBANK_prevOpenInterest() {
+		public double getICICIBANK_prevOpenInterest() {
 			return ICICIBANK_prevOpenInterest;
 		}
-		public void setICICIBANK_prevOpenInterest(String iCICIBANK_prevOpenInterest) {
+		public void setICICIBANK_prevOpenInterest(double iCICIBANK_prevOpenInterest) {
 			ICICIBANK_prevOpenInterest = iCICIBANK_prevOpenInterest;
 		}
-		public String getSBIN_prevOpenInterest() {
+		public double getSBIN_prevOpenInterest() {
 			return SBIN_prevOpenInterest;
 		}
-		public void setSBIN_prevOpenInterest(String sBIN_prevOpenInterest) {
+		public void setSBIN_prevOpenInterest(double sBIN_prevOpenInterest) {
 			SBIN_prevOpenInterest = sBIN_prevOpenInterest;
 		}
-		public String getKOTAKBANK_prevOpenInterest() {
+		public double getKOTAKBANK_prevOpenInterest() {
 			return KOTAKBANK_prevOpenInterest;
 		}
-		public void setKOTAKBANK_prevOpenInterest(String kOTAKBANK_prevOpenInterest) {
+		public void setKOTAKBANK_prevOpenInterest(double kOTAKBANK_prevOpenInterest) {
 			KOTAKBANK_prevOpenInterest = kOTAKBANK_prevOpenInterest;
 		}
-		public String getAXISBANK_prevOpenInterest() {
+		public double getAXISBANK_prevOpenInterest() {
 			return AXISBANK_prevOpenInterest;
 		}
-		public void setAXISBANK_prevOpenInterest(String aXISBANK_prevOpenInterest) {
+		public void setAXISBANK_prevOpenInterest(double aXISBANK_prevOpenInterest) {
 			AXISBANK_prevOpenInterest = aXISBANK_prevOpenInterest;
 		}
-		public String getPNB_prevOpenInterest() {
+		public double getPNB_prevOpenInterest() {
 			return PNB_prevOpenInterest;
 		}
-		public void setPNB_prevOpenInterest(String pNB_prevOpenInterest) {
+		public void setPNB_prevOpenInterest(double pNB_prevOpenInterest) {
 			PNB_prevOpenInterest = pNB_prevOpenInterest;
 		}
-		public String getBANKBARODA_prevOpenInterest() {
+		public double getBANKBARODA_prevOpenInterest() {
 			return BANKBARODA_prevOpenInterest;
 		}
-		public void setBANKBARODA_prevOpenInterest(String bANKBARODA_prevOpenInterest) {
+		public void setBANKBARODA_prevOpenInterest(double bANKBARODA_prevOpenInterest) {
 			BANKBARODA_prevOpenInterest = bANKBARODA_prevOpenInterest;
 		}
-		public String getCANBK_prevOpenInterest() {
+		public double getCANBK_prevOpenInterest() {
 			return CANBK_prevOpenInterest;
 		}
-		public void setCANBK_prevOpenInterest(String cANBK_prevOpenInterest) {
+		public void setCANBK_prevOpenInterest(double cANBK_prevOpenInterest) {
 			CANBK_prevOpenInterest = cANBK_prevOpenInterest;
 		}
-		public String getINDUSINDBK_prevOpenInterest() {
+		public double getINDUSINDBK_prevOpenInterest() {
 			return INDUSINDBK_prevOpenInterest;
 		}
-		public void setINDUSINDBK_prevOpenInterest(String iNDUSINDBK_prevOpenInterest) {
+		public void setINDUSINDBK_prevOpenInterest(double iNDUSINDBK_prevOpenInterest) {
 			INDUSINDBK_prevOpenInterest = iNDUSINDBK_prevOpenInterest;
 		}
-		public String getIDFCFIRSTB_prevOpenInterest() {
+		public double getIDFCFIRSTB_prevOpenInterest() {
 			return IDFCFIRSTB_prevOpenInterest;
 		}
-		public void setIDFCFIRSTB_prevOpenInterest(String iDFCFIRSTB_prevOpenInterest) {
+		public void setIDFCFIRSTB_prevOpenInterest(double iDFCFIRSTB_prevOpenInterest) {
 			IDFCFIRSTB_prevOpenInterest = iDFCFIRSTB_prevOpenInterest;
 		}
-		public String getAUBANK_prevOpenInterest() {
+		public double getAUBANK_prevOpenInterest() {
 			return AUBANK_prevOpenInterest;
 		}
-		public void setAUBANK_prevOpenInterest(String aUBANK_prevOpenInterest) {
+		public void setAUBANK_prevOpenInterest(double aUBANK_prevOpenInterest) {
 			AUBANK_prevOpenInterest = aUBANK_prevOpenInterest;
 		}
-		public String getFEDERALBNK_prevOpenInterest() {
+		public double getFEDERALBNK_prevOpenInterest() {
 			return FEDERALBNK_prevOpenInterest;
 		}
-		public void setFEDERALBNK_prevOpenInterest(String fEDERALBNK_prevOpenInterest) {
+		public void setFEDERALBNK_prevOpenInterest(double fEDERALBNK_prevOpenInterest) {
 			FEDERALBNK_prevOpenInterest = fEDERALBNK_prevOpenInterest;
 		}
 		public String getHDFCBANK_symbol() {
@@ -2376,8 +2379,23 @@ import jakarta.persistence.Table;
 			this.highestOptChainVol_strikePrice = highestOptChainVol_strikePrice;
 		}
 		
-	    
-	    
+		
+		public Double getHighestOptChainVol_targetLtp() {
+			return highestOptChainVol_targetLtp;
+		}
+		public void setHighestOptChainVol_targetLtp(Double highestOptChainVol_targetLtp) {
+			this.highestOptChainVol_targetLtp = highestOptChainVol_targetLtp;
+		}
+		public Double getHighestOptChainVol_stopLossLtp() {
+			return highestOptChainVol_stopLossLtp;
+		}
+		public void setHighestOptChainVol_stopLossLtp(Double highestOptChainVol_stopLossLtp) {
+			this.highestOptChainVol_stopLossLtp = highestOptChainVol_stopLossLtp;
+		}
+		
+		
+		
+		
 		
 		@Override
 		public String toString() {
@@ -2550,24 +2568,26 @@ import jakarta.persistence.Table;
 					+ FEDERALBNK_type + ", highestOptChainVol_open=" + highestOptChainVol_open
 					+ ", highestOptChainVol_high=" + highestOptChainVol_high + ", highestOptChainVol_low="
 					+ highestOptChainVol_low + ", highestOptChainVol_close=" + highestOptChainVol_close
-					+ ", highestOptChainVol_ltp=" + highestOptChainVol_ltp + ", highestOptChainVol_dayChange="
-					+ highestOptChainVol_dayChange + ", highestOptChainVol_dayChangePerc="
-					+ highestOptChainVol_dayChangePerc + ", highestOptChainVol_lowPriceRange="
-					+ highestOptChainVol_lowPriceRange + ", highestOptChainVol_highPriceRange="
-					+ highestOptChainVol_highPriceRange + ", highestOptChainVol_volume=" + highestOptChainVol_volume
-					+ ", highestOptChainVol_lowTradeRange=" + highestOptChainVol_lowTradeRange
-					+ ", highestOptChainVol_highTradeRange=" + highestOptChainVol_highTradeRange
-					+ ", highestOptChainVol_totalBuyQty=" + highestOptChainVol_totalBuyQty
-					+ ", highestOptChainVol_totalSellQty=" + highestOptChainVol_totalSellQty
-					+ ", highestOptChainVol_openInterest=" + highestOptChainVol_openInterest
-					+ ", highestOptChainVol_prevOpenInterest=" + highestOptChainVol_prevOpenInterest
-					+ ", highestOptChainVol_oiDayChange=" + highestOptChainVol_oiDayChange
-					+ ", highestOptChainVol_oiDayChangePerc=" + highestOptChainVol_oiDayChangePerc
-					+ ", highestOptChainVol_lastTradeQty=" + highestOptChainVol_lastTradeQty
-					+ ", highestOptChainVol_lastTradeTime=" + highestOptChainVol_lastTradeTime
-					+ ", highestOptChainVol_type=" + highestOptChainVol_type + ", highestOptChainVol_symbol="
-					+ highestOptChainVol_symbol + ", highestOptChainVol_tsInMillis=" + highestOptChainVol_tsInMillis
-					+ ", highestOptChainVol_strikePrice=" + highestOptChainVol_strikePrice + "]";
+					+ ", highestOptChainVol_dayChange=" + highestOptChainVol_dayChange
+					+ ", highestOptChainVol_dayChangePerc=" + highestOptChainVol_dayChangePerc
+					+ ", highestOptChainVol_lowPriceRange=" + highestOptChainVol_lowPriceRange
+					+ ", highestOptChainVol_highPriceRange=" + highestOptChainVol_highPriceRange
+					+ ", highestOptChainVol_volume=" + highestOptChainVol_volume + ", highestOptChainVol_lowTradeRange="
+					+ highestOptChainVol_lowTradeRange + ", highestOptChainVol_highTradeRange="
+					+ highestOptChainVol_highTradeRange + ", highestOptChainVol_totalBuyQty="
+					+ highestOptChainVol_totalBuyQty + ", highestOptChainVol_totalSellQty="
+					+ highestOptChainVol_totalSellQty + ", highestOptChainVol_openInterest="
+					+ highestOptChainVol_openInterest + ", highestOptChainVol_prevOpenInterest="
+					+ highestOptChainVol_prevOpenInterest + ", highestOptChainVol_oiDayChange="
+					+ highestOptChainVol_oiDayChange + ", highestOptChainVol_oiDayChangePerc="
+					+ highestOptChainVol_oiDayChangePerc + ", highestOptChainVol_lastTradeQty="
+					+ highestOptChainVol_lastTradeQty + ", highestOptChainVol_lastTradeTime="
+					+ highestOptChainVol_lastTradeTime + ", highestOptChainVol_type=" + highestOptChainVol_type
+					+ ", highestOptChainVol_symbol=" + highestOptChainVol_symbol + ", highestOptChainVol_tsInMillis="
+					+ highestOptChainVol_tsInMillis + ", highestOptChainVol_strikePrice="
+					+ highestOptChainVol_strikePrice + ", highestOptChainVol_ltp=" + highestOptChainVol_ltp
+					+ ", highestOptChainVol_targetLtp=" + highestOptChainVol_targetLtp
+					+ ", highestOptChainVol_stopLossLtp=" + highestOptChainVol_stopLossLtp + "]";
 		}
 		private BankNiftyCompaniesData() {
 	        // initialize default values if needed

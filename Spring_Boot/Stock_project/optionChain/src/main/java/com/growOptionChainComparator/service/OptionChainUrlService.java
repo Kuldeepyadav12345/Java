@@ -141,7 +141,7 @@ public class OptionChainUrlService {
 		for (String option : BANKNIFTY_COMPANIES) {
 			String formattedUrl = String.format(BANKNIFTY_COMPANY_URL, option);
 			bankNiftyCompanies.add(formattedUrl);
-			 System.out.println("Generated URL: " + formattedUrl); // For debugging
+			 //System.out.println("Generated URL: " + formattedUrl); // For debugging
 		}
 		return bankNiftyCompanies;
 	}

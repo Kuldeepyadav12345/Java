@@ -23,11 +23,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+
+
 @Service
 public class getHighestVolumeData {
 
+	@Autowired
+	Deeplearning4jService dl4jService;
+	
+	
 	int count = 0;
-	double[] dayChangePercentage = new double[11];
+	int modelCount = 0;
+	double[] dayChangePercentage = new double[12];
+	double[] deepLearningInputParam = new double[265];
 
 	@Autowired
 	private HighestVolumeDataRepo highestVolumeDataRepo;
@@ -185,7 +193,7 @@ public class getHighestVolumeData {
 					bankNiftyCompaniesData.setHighestOptChainVol_high(apiData.getHigh());
 					bankNiftyCompaniesData.setHighestOptChainVol_low(apiData.getLow());
 					bankNiftyCompaniesData.setHighestOptChainVol_close(apiData.getClose());
-					bankNiftyCompaniesData.setHighestOptChainVol_ltp(apiData.getLtp());
+					
 					bankNiftyCompaniesData.setHighestOptChainVol_dayChange(apiData.getDayChange());
 					bankNiftyCompaniesData.setHighestOptChainVol_dayChangePerc(apiData.getDayChangePerc());
 					bankNiftyCompaniesData.setHighestOptChainVol_lowPriceRange(apiData.getLowPriceRange());
@@ -201,6 +209,9 @@ public class getHighestVolumeData {
 					bankNiftyCompaniesData.setHighestOptChainVol_oiDayChangePerc(apiData.getOiDayChangePerc());
 					bankNiftyCompaniesData.setHighestOptChainVol_lastTradeQty(apiData.getLastTradeQty());
 					bankNiftyCompaniesData.setHighestOptChainVol_lastTradeTime(apiData.getLastTradeTime());
+					bankNiftyCompaniesData.setHighestOptChainVol_ltp(apiData.getLtp());
+					setTargetAndStopLoss(bankNiftyCompaniesData,apiData);
+					
 
 					// Convert object to JSON string
 //					Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -211,11 +222,15 @@ public class getHighestVolumeData {
 //					System.out.println(jsonOutput);
 
 					// Make predictions using both models
-					// double djlPrediction = deepLearningService.predict(apiData);
-					ModelTrainer.initializeModelAndSave();
-					// double dl4jPrediction = dl4jService.predict(bankNiftyCompaniesData);
+					
+					deepLearningInputParam = ModelTrainer.deepLearningInputParam(apiData, bankNiftyCompaniesData,deepLearningInputParam);	
+					if (modelCount == 0) {
+						ModelTrainer.initializeModelAndSave(deepLearningInputParam);
+					}
+					 //double djlPrediction = deepLearningService.predict(apiData);
+					double dl4jPrediction = dl4jService.predict(deepLearningInputParam);
 					// System.out.println("\nDJL Model Prediction: " + djlPrediction);
-					// System.out.println("DL4J Model Prediction: " + dl4jPrediction);
+					 System.out.println("DL4J Model Prediction: " + dl4jPrediction);
 //					System.out.println("Current LTP: " + apiData.getLtp());
 //					System.out.println("ApiConstants.storedStrikePrice: " + ApiConstants.storedStrikePrice);
 
@@ -225,10 +240,24 @@ public class getHighestVolumeData {
 			} else {
 				System.out.println("GET request failed. Response code: " + responseCode);
 			}
+			modelCount++;
 		} catch (Exception e) {
 			System.err.println("Error processing data: " + e.getMessage());
 			e.printStackTrace();
 		}
 
 	}
+
+	private void setTargetAndStopLoss(BankNiftyCompaniesData bankNiftyCompaniesData2, OptionData apiData) {
+		if (bankNiftyCompaniesData2.getHighestOptChainVol_targetLtp() == null || bankNiftyCompaniesData2.getHighestOptChainVol_targetLtp() < apiData.getLtp()) {
+			bankNiftyCompaniesData2.setHighestOptChainVol_targetLtp(apiData.getLtp() + 20);
+			
+		}
+		if (bankNiftyCompaniesData2.getHighestOptChainVol_stopLossLtp() == null || bankNiftyCompaniesData2.getHighestOptChainVol_stopLossLtp() > apiData.getLtp()) {
+			bankNiftyCompaniesData2.setHighestOptChainVol_stopLossLtp(apiData.getLtp() - 20);	
+		}
+			
+	}
+
+	
 }

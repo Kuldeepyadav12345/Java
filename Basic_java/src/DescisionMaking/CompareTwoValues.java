@@ -40,6 +40,7 @@ public class CompareTwoValues {
 				+ compareValues3(10, 20));
 		System.out.println("Approach 4: Comparator Functional Approach --->>>" + compareValues4(10, 20));
 		System.out.println("Approach 5: Java Streams & Map (Overkill but Advanced) --->>>" + compareValues5(10, 20));
+		System.out.println(true);
 
 	}
 
